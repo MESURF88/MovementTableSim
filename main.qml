@@ -26,31 +26,8 @@ ApplicationWindow {
         id: tableView
         anchors.fill: parent
         focus: true
-
-        rowSpacing: 1
-        columnSpacing: 1
-
         ScrollBar.horizontal: ScrollBar {}
         ScrollBar.vertical: ScrollBar {}
-
-/*        Keys.onPressed: (evt) =>
-        {
-            switch(evt.key)
-            {
-            case Qt.Key_Right:
-               tableModelVis.mover(Direction.RIGHT);
-               break;
-                                case Qt.Key_Left:
-                                   tableModelVis.mover(Direction.LEFT);
-                                   break;
-                                case Qt.Key_Up:
-                                   tableModelVis.mover(Direction.UP);
-                                   break;
-                                case Qt.Key_Down:
-                                   tableModelVis.mover(Direction.DOWN);
-                                   break;
-            }
-        }*/
 
         Keys.onRightPressed: {
             tableModelVis.mover(Direction.RIGHT);
@@ -67,12 +44,10 @@ ApplicationWindow {
 
         delegate: Rectangle {
             id: cell
-            implicitWidth: 15
-            implicitHeight: 15
+            implicitWidth: 2
+            implicitHeight: 2
 
             color: Qt.rgba(Math.min(1, (darkGreenR + 255 * model.value)/255),Math.min(1, (darkGreenG + 255 * model.value)/255), Math.min(1, (darkGreenB + 255 * model.value)/255), darkGreenA)
-
-            //color: model.value ? "#f3f3f4" : "#b5b7bf"
         }
         //! [tableview]
 
@@ -109,15 +84,6 @@ ApplicationWindow {
 
             Item {
                 width: 50
-            }
-
-            Slider {
-                id: slider
-                x: 245
-                y: 17
-                from: 0
-                to: 1
-                value: 0.9
             }
         }
 

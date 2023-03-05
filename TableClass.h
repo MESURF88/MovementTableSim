@@ -62,8 +62,8 @@ void processTheMove();
 private:
 QTimer *timerSequence = nullptr;
 static constexpr int ringnum = 5;
-static constexpr int width = 30;
-static constexpr int height = 30;
+static constexpr int width = 100;
+static constexpr int height = 100;
 static constexpr int size = width * height;
 
 using StateContainer = std::array<double, size>;

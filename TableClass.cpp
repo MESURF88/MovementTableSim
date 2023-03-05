@@ -99,9 +99,9 @@ void QmlTableModel::setIndicator(const QPoint &pt)
 {
     QPoint ptnext;
     beginResetModel();
-        m_currentState.fill(0.0);
+    m_currentState.fill(0.0);
     m_currentState[cellIndex({pt.x(), pt.y()})] = .5;
-    for (int i = 1; i < 3; i++)
+    for (int i = 1; i < ringnum; i++)
     {
         //top left -> right
         for (int j = 0; j < i*2+1; j++)
@@ -204,8 +204,13 @@ void QmlTableModel::processTheMove()
     {
 motion = QRandomGenerator::global()->bounded( RIGHT );
     }
+    int nummotion = QRandomGenerator::global()->bounded( 5, 10 );
+    for (int i = 0; i < nummotion; i++)
+    {
 mover(static_cast<Direction>(motion));
 setIndicator(m_currpos);
+    }
+
 }
 
 static bool randomFlipper()
