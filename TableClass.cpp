@@ -14,6 +14,7 @@ QmlTableModel::QmlTableModel(QObject *parent) : QAbstractTableModel(parent)
 
 void QmlTableModel::startSim()
 {
+
     timerSequence = new QTimer();
     connect(timerSequence, SIGNAL(timeout()), this, SLOT(processTheMove()));
     timerSequence->start(2);
@@ -98,8 +99,7 @@ bool QmlTableModel::setData(const QModelIndex &index, const QVariant &value, int
 void QmlTableModel::setIndicator(const QPoint &pt)
 {
     QPoint ptnext;
-    beginResetModel();
-    m_currentState.fill(0.0);
+    QPoint corner1 = QPoint(pt.x()-ringnum, pt.y()-ringnum);
     m_currentState[cellIndex({pt.x(), pt.y()})] = .5;
     for (int i = 1; i < ringnum; i++)
     {
@@ -107,6 +107,7 @@ void QmlTableModel::setIndicator(const QPoint &pt)
         for (int j = 0; j < i*2+1; j++)
         {
             ptnext = QPoint{pt.x()-i+j, pt.y()-i};
+            qDebug() << ptnext;
             if( cellIndexAgainstWallCheck(ptnext) )
            {
             m_currentState[cellIndex(ptnext)] = (.5 - (i * .1));
@@ -140,7 +141,7 @@ void QmlTableModel::setIndicator(const QPoint &pt)
            }
         }
     }
-    endResetModel();
+       emit dataChanged(index(corner1.y(), corner1.x()), index(corner1.y()+ringnum*2,corner1.x()+ringnum*2), {CellRole});
 }
 //! [write]
 
